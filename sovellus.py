@@ -8,17 +8,14 @@ import winsound
 # Otetaan käyttöön oma funktiomoduli
 import funktio_moduli
 
-
 def select_case(sanakirja, avain, oletus):
     """Muiden ohjelmointikielten Select-Case-rakennetta vastaava funktio
-
     Args:
         sanakirja (dict): Avain-arvo-parit
         avain (any): hakuavain
-        oletus (any): arvo, jos hakuavainta ei loydy
-
+        oletus (any): arvo, jos hakuavainta ei löydy
     Returns:
-        any: Hakuavainta vastaava arvo tai oletus, mikali hakuavainta ei loytynyt
+        any: Hakuavainta vastaava arvo tai oletus, mikäli hakuavainta ei löytynyt
     """
     arvo = sanakirja.get(avain, oletus)
     return arvo
@@ -27,16 +24,16 @@ def select_case(sanakirja, avain, oletus):
 # Varsinainen pääohjelma alkaa tästä
 huoneraja_arvot = {'MH': 30, 'K': 20, 'KPH': 5, 'WC': 5, 'OH': 20}
 
-# Lista mittaustuloksista, tyhjä ennen silmukkaa
+# Lista mittaustuloksita, tyhjä ennen silmukkaa
 mittaustulokset = []
 
 # Ikuinen silmukka
 while True:
     # Tätä toistetaan kunnes käyttäjä sulkee ohjelman
-    seina1 = float(input('Anna ensimmaisen seinan pituus: '))
-    seina2 = float(input('Anna toisen seinan pituus: '))
+    seina1 = float(input('Anna ensimmäisen seinän pituus: '))
+    seina2 = float(input('Anna toisen seinän pituus: '))
     lavistaja = float(input('Anna ristimitta: '))
-    # TODO: Lisää tähän kysymys mikä huonetyyppi on kyseessä
+    # TODO: lisää tähän kysymys mikä huonetyyppi on kyseessä
     mittaustulokset.append(seina1)
     mittaustulokset.append(seina2)
     mittaustulokset.append(lavistaja)
@@ -54,11 +51,11 @@ while True:
 
 # Ohjelman suoritus päättyy
 
-# Kysytään mittaajan työmaan tiedot
+# Kysytään mittaajan ja työmaan tiedot
 tyomaa = input(
-    'Minka tyyppinen tyomaa oli (kerrostalo, rivitalo tai OK-talo): ').lower()
+    'Minkä tyyppinen työmaa oli (kerrostalo, rivitalo tai OK-talo): ').lower()
 
-# Ilmoitetaan montako senttiä mittauksessa saa olla virheitä IF-rakenteen avulla
+# Ilmoitetaan montako senttiä mittauksessa saa olla virhettä IF-rakenteen avulla
 
 if tyomaa == 'kerrostalo':
     print('Maksimivirhe saa olla 10 mm')
@@ -68,7 +65,7 @@ else:
     print('Maksimivirhe saa olla 50 mm')
 
 # Kysytään huonetyyppi
-    huone = input('mika huone? ').upper()
+huone = input('Mikä huone? ').upper()
 
 # Haetaan raja-arvo sanakirjasta, oletus 50 mm
 raja_arvo = select_case(huoneraja_arvot, huone, 50)
@@ -76,9 +73,9 @@ raja_arvo = select_case(huoneraja_arvot, huone, 50)
 print('Maksimiero', huone, 'on', raja_arvo, 'mm')
 
 mittauksia = len(mittaustulokset)
-print('Kiitos tasta paivasta, teit', mittauksia, 'mittausta')
+print('Kiitos tästä päivästä, teit', mittauksia, 'mittausta')
 
 # Tulostetaan ruudulle kaikki mittaustulokset
-print('Paivan mittaukset alla: ')
+print('Päivän mittaukset alla:')
 for mittaus in mittaustulokset:
     print(mittaus)
