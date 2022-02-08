@@ -6,7 +6,10 @@
 import winsound
 
 # Otetaan käyttöön oma funktiomoduli
-import funktio_moduli
+import funktiot_moduli
+
+# Otetaan käyttöön oma kysymysmoduli
+import kysymys
 
 def select_case(sanakirja, avain, oletus):
     """Muiden ohjelmointikielten Select-Case-rakennetta vastaava funktio
@@ -29,10 +32,9 @@ mittaustulokset = []
 
 # Ikuinen silmukka
 while True:
-    # Tätä toistetaan kunnes käyttäjä sulkee ohjelman
-    seina1 = float(input('Anna ensimmäisen seinän pituus: '))
-    seina2 = float(input('Anna toisen seinän pituus: '))
-    lavistaja = float(input('Anna ristimitta: '))
+    seina1 = kysymys.kysy_liukuluku('Anna ensimmäisen seinän pituus metreinä: ')
+    seina2 = kysymys.kysy_liukuluku('Anna toisen seinän pituus metreinä: ')
+    lavistaja = kysymys.kysy_liukuluku('Anna huoneen ristimitta metreinä: ')
     # TODO: lisää tähän kysymys mikä huonetyyppi on kyseessä
     mittaustulokset.append(seina1)
     mittaustulokset.append(seina2)
@@ -40,7 +42,7 @@ while True:
 
     # TODO: Muuta, siten, että kertoo onko huonekohtaisten rajojen sisällä
     # Kerrotaan onko tila suorakulmainen
-    print('Nurkka suorakulmainen', funktio_moduli.suorakulma(
+    print('Ero suoraankulmaan on', funktiot_moduli.suorakulma(
         seina1, seina2, lavistaja))
 
     # Kysytään käyttäjältä haluaako jatkaa
