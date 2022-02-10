@@ -61,6 +61,8 @@ def laske_varmiste(summa):
 # TODO: Refaktoroi summaa_merkit() ja laske_varmiste() -funktiot yhdeksi funktioksi
 # siten, että jakaja on funktion toisena argumenttina
 
+# TODO: Lisää funktioihin puuttuvat doc string -selitykset
+
 if __name__ == "__main__":
     merkkijono = muodosta_sanoma(3000,4000,5003,3)
     print(merkkijono)
