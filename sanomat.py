@@ -1,5 +1,4 @@
 # MODULI MITTAUSSANOMIEN KÄSITTELYYN
-#TODO: tee esimerkki siitä, miten rakennetaan sanoma
 
 # Sanoma koostuu alkumerkistä <, datasta, loppumerkistä > ja varmistussummasta
 # Varmistussumma lasketaan siten, että kirjainten ascii koodit
@@ -18,6 +17,9 @@
 # Kirjastojen ja modulien lataukset
 
 # Funktio, jolla muodostetaan sanoman sisältö
+from posixpath import split
+
+
 def muodosta_sanoma(seina1, seina2, ristimitta, virhe):
     """Muodostaa merkkijonon sanomarakennetta varten
     Args:
@@ -81,9 +83,8 @@ def lopullinen_sanoma(sanoma, varmiste):
     return sanoma    
 
 # TODO: Yhdistä kaikki yhteen sanomaan eli alku- ja loppumerkit sekä varmiste tekstinä
-
-# TODO: Refaktoroi summaa_merkit() ja laske_varmiste() -funktiot yhdeksi funktioksi
-# siten, että jakaja on funktion toisena argumenttina
+# Funktio saa parametrina mitat, jakajan ja erotinmerkin, alkumerkin ja loppumerkin
+# 
 
 # Muodostetaan merkeistä varmiste valittua jakajaa käyttäen
 def muodosta_varmiste(merkit, jakaja):
@@ -91,6 +92,8 @@ def muodosta_varmiste(merkit, jakaja):
 
 
 if __name__ == "__main__":
+    
+    # Testaan sanoman muodostamista
     merkkijono = muodosta_sanoma(3000,4000,5003,3)
     print(merkkijono)
     summa = summaa_merkit(merkkijono)
@@ -99,4 +102,34 @@ if __name__ == "__main__":
     print('Modulo 127 varmiste on', varmiste)
     valmis_sanoma = lopullinen_sanoma(merkkijono, varmiste)
     print('Valmis sanoma näyttää tältä', valmis_sanoma)
+    
+    # Testataan sanoman purkamista
+    sanoman_pituus = len(valmis_sanoma) # Lasketaan sanoman kokonaispituus
+    ilman_merkkeja = valmis_sanoma[1:sanoman_pituus -1] # Sanoma ilman alku- ja loppumerkkejä
+    print('sanoma ilman alku- ja loppumerkkiä on', ilman_merkkeja)
+    paloteltu_sanoma = ilman_merkkeja.split('|') # Pilkotaan |-merkistä listaksi
+    print('arvot listamuodossa ovat:', paloteltu_sanoma)
+    
+    listan_pituus = len(paloteltu_sanoma)
+    print('listassa on', listan_pituus, 'jäsentä')
+    alkuperainen_tarkiste = paloteltu_sanoma[listan_pituus - 1] # Sanoman mukana tullut tarkiste
+    ilman_varmistetta = paloteltu_sanoma[0:listan_pituus - 1] # Listan jäsenet ilman varmistussummaa
+    
+    # Rakennetaan mitat sisältävä merkkijono uudelleen
+    uudelleen_str = ''
+    for jasen in ilman_varmistetta:
+        uudelleen_str = uudelleen_str + jasen + '|'
+    print('alkuperäinen tarkiste on', alkuperainen_tarkiste)
+    print(uudelleen_str)
+    
+    # Verrataan alkuperäistä ja uudelleenlaskettua tarkistetta, jos sama sanoma OK
+    uudelleenlaskettu_tarkiste = muodosta_varmiste(uudelleen_str, 127)
+    print('uudelleen laskettuna se on', uudelleenlaskettu_tarkiste)
+    if (alkuperainen_tarkiste) == muodosta_varmiste(uudelleen_str, 127):
+        print('Sanoma vahingoittumaton, varmiste tarkistettu')
         
+    else:
+        print('Sanoma muuttunut tiedonsiirrossa!')
+      
+    # TODO: Rakenna purkutestin perusteella funktio ja tee sille testi
+    # TODO: Refaktoroi koodia
